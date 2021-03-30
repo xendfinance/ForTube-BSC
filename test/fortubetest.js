@@ -267,55 +267,55 @@
 
         });
 
-        // it('forTubeBankService Contract: Should Withdraw By Specifying VBUSD Shares Amount Only', async() => {
-        //     //  This function is used when you need to only specify the share amount 
+        it('forTubeBankService Contract: Should Withdraw By Specifying VBUSD Shares Amount Only', async() => {
+            //  This function is used when you need to only specify the share amount 
     
-        //     //  Get YDai Shares balance
-        //     var vBUSDBalanceBeforeWithdrawal = BigInt(await forTubeBankAdapter.GetVBUSDBalance(account1));
+            //  Get fBUSD Shares balance
+            var fBUSDBalanceBeforeWithdrawal = BigInt(await forTubeBankAdapter.GetFBUSDBalance(account1));
             
-        //     //  Run this test only if we have yDai shares already in the address
-        //     if(vBUSDBalanceBeforeWithdrawal > 0){
+            //  Run this test only if we have yDai shares already in the address
+            if(fBUSDBalanceBeforeWithdrawal > 0){
                 
-        //         //  First we have to approve the adapter to spend money on behlaf of the owner of the YDAI, in this case account 1 and 2
-        //         var approvedAmountToSpend = BigInt(9000000000000000000000); //   10,000 YDai
-        //         await approveVBUSD(forTubeBankAdapter.address,account1,approvedAmountToSpend);
-        //         await approveVBUSD(forTubeBankAdapter.address,account2,approvedAmountToSpend);
+                //  First we have to approve the adapter to spend money on behlaf of the owner of the YDAI, in this case account 1 and 2
+                var approvedAmountToSpend = BigInt(9000000000000000000000); //   10,000 YDai
+                await approveVBUSD(forTubeBankAdapter.address,account1,approvedAmountToSpend);
+                await approveVBUSD(forTubeBankAdapter.address,account2,approvedAmountToSpend);
     
-        //         //  Get Dai balance before withdrawal
-        //         var balanceBeforeWithdrawal = BigInt(await forTubeBankAdapter.GetBUSDBalance(account1));
+                //  Get Dai balance before withdrawal
+                var balanceBeforeWithdrawal = BigInt(await forTubeBankAdapter.GetBUSDBalance(account1));
     
-        //         //  Withdraw  
-        //         //  TODO: find a way to make request from account 2
-        //         var YDaibalanceOfAddress = BigInt(await forTubeBankAdapter.GetVBUSDBalance(account1));
-        //         await forTubeBankService.WithdrawBySharesOnly(YDaibalanceOfAddress.toString());
+                //  Withdraw  
+                //  TODO: find a way to make request from account 2
+                var FBUSDbalanceOfAddress = BigInt(await forTubeBankAdapter.GetFBUSDBalance(account1));
+                await forTubeBankService.WithdrawBySharesOnly(FBUSDbalanceOfAddress.toString());
     
-        //         //  Get Dai balance after withdrawal
-        //         var balanceAfterWithdrawal = BigInt(await forTubeBankAdapter.GetBUSDBalance(account1));
+                //  Get Dai balance after withdrawal
+                var balanceAfterWithdrawal = BigInt(await forTubeBankAdapter.GetBUSDBalance(account1));
                 
-        //         assert(balanceBeforeWithdrawal > 0);
-        //         assert(balanceAfterWithdrawal > 0);
-        //         assert(balanceAfterWithdrawal > balanceBeforeWithdrawal);
-        //         console.log("balance before withdrawal by shares: " + balanceBeforeWithdrawal);
-        //         console.log("Withdrawing Everything Plus Interest :D");
-        //         console.log("balance after withdrawal by shares: " + balanceAfterWithdrawal);  
+                assert(balanceBeforeWithdrawal > 0);
+                assert(balanceAfterWithdrawal > 0);
+                assert(balanceAfterWithdrawal > balanceBeforeWithdrawal);
+                console.log("balance before withdrawal by shares: " + balanceBeforeWithdrawal);
+                console.log("Withdrawing Everything Plus Interest :D");
+                console.log("balance after withdrawal by shares: " + balanceAfterWithdrawal);  
     
-        //     }else{
-        //         console.log("Savings has not been made!!!")
-        //     }
+            }else{
+                console.log("Savings has not been made!!!")
+            }
     
-        // });
+        });
 
-        //  //  Check for account 1 gross and net balance
-        //  it('forTubeBankAdapter Contract: Should Display Gross and Net Balance For User Account', async () => {
+         //  Check for account 1 gross and net balance
+         it('forTubeBankAdapter Contract: Should Display Gross and Net Balance For User Account', async () => {
             
-        //     //  Get BUSD balance before withdrawal
-        //     var grossRevenueForAccount1 = BigInt(await forTubeBankAdapter.GetGrossRevenue(account1));
-        //     console.log(`Gross revenue : ${grossRevenueForAccount1}`);
+            //  Get BUSD balance before withdrawal
+            var grossRevenueForAccount1 = BigInt(await forTubeBankAdapter.GetGrossRevenue(account1));
+            console.log(`Gross revenue : ${grossRevenueForAccount1}`);
 
-        //     var netRevenueForAccount1 = BigInt(await forTubeBankAdapter.GetNetRevenue(account1));
-        //     console.log(`Net revenue : ${netRevenueForAccount1}`);
+            var netRevenueForAccount1 = BigInt(await forTubeBankAdapter.GetNetRevenue(account1));
+            console.log(`Net revenue : ${netRevenueForAccount1}`);
 
-        // });
+        });
 
     });
     
