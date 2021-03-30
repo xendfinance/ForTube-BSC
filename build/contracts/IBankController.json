@@ -53,26 +53,26 @@
       "type": "function"
     }
   ],
-  "metadata": "{\"compiler\":{\"version\":\"0.6.6+commit.6c089d02\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"getAllMarkets\",\"outputs\":[{\"internalType\":\"contract IFToken[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"underlying\",\"type\":\"address\"}],\"name\":\"getFTokeAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"fToken\",\"type\":\"address\"}],\"name\":\"isFTokenValid\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{\"getFTokeAddress(address)\":{\"notice\":\"underlying is the main token address eg BUSD This function will return the corresponding fToken when you pass the token address  Eg when you pass BUSD you will get address of fBUSD \"}}}},\"settings\":{\"compilationTarget\":{\"/C/Users/MKOPA/Documents/WORK/UGARSOFT/yearn-savings/yearnbsc/contracts/IBankController.sol\":\"IBankController\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/MKOPA/Documents/WORK/UGARSOFT/yearn-savings/yearnbsc/contracts/IBEP20.sol\":{\"keccak256\":\"0xe4a4112cbd571edc879958ca7be010ad47c53305ca64cdb374556fd45a029168\",\"urls\":[\"bzz-raw://26d39f68d37159c6d2b34fa1ade4b59403c184c822d82534cddf006eab94f343\",\"dweb:/ipfs/QmXbg49PKbKVJN84ARz99NYLfUtKb6RA5Be9PJ1ndAYWFz\"]},\"/C/Users/MKOPA/Documents/WORK/UGARSOFT/yearn-savings/yearnbsc/contracts/IBankController.sol\":{\"keccak256\":\"0xcf519fc802e9e63351edf75bcdddbf262b7d851794c32a8342d3f2dcc3bb2cef\",\"urls\":[\"bzz-raw://3776ca7847ea4b0926dd53837489ef147b0b96fa80a2b3f3a28bd16435c69fa9\",\"dweb:/ipfs/QmWtrMQobdfpb84T7DQ67Mq5A2p75piRwC6xoN5Q5fXuKR\"]},\"/C/Users/MKOPA/Documents/WORK/UGARSOFT/yearn-savings/yearnbsc/contracts/IFToken.sol\":{\"keccak256\":\"0xb31e8e354fe3cf151410c2143fb9844e5a777569fc7d2bbd288e7610e91cb20b\",\"urls\":[\"bzz-raw://58515d4e9474cbd36071eab29f37ad2fbdc38a41b84ca0021ded3281e2fa525f\",\"dweb:/ipfs/Qmc6Rwf8XbWfvfcSBm965K1mipBASU4Wf4m8pQaVtwPTq8\"]}},\"version\":1}",
+  "metadata": "{\"compiler\":{\"version\":\"0.6.6+commit.6c089d02\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[],\"name\":\"getAllMarkets\",\"outputs\":[{\"internalType\":\"contract IFToken[]\",\"name\":\"\",\"type\":\"address[]\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"underlying\",\"type\":\"address\"}],\"name\":\"getFTokeAddress\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"fToken\",\"type\":\"address\"}],\"name\":\"isFTokenValid\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"methods\":{}},\"userdoc\":{\"methods\":{\"getFTokeAddress(address)\":{\"notice\":\"underlying is the main token address eg BUSD This function will return the corresponding fToken when you pass the token address  Eg when you pass BUSD you will get address of fBUSD \"}}}},\"settings\":{\"compilationTarget\":{\"/C/Users/MKOPA/Documents/WORK/UGARSOFT/Fortube-Individual-Group-BSC/contracts/IBankController.sol\":\"IBankController\"},\"evmVersion\":\"byzantium\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\"},\"optimizer\":{\"enabled\":true,\"runs\":200},\"remappings\":[]},\"sources\":{\"/C/Users/MKOPA/Documents/WORK/UGARSOFT/Fortube-Individual-Group-BSC/contracts/IBEP20.sol\":{\"keccak256\":\"0xe4a4112cbd571edc879958ca7be010ad47c53305ca64cdb374556fd45a029168\",\"urls\":[\"bzz-raw://26d39f68d37159c6d2b34fa1ade4b59403c184c822d82534cddf006eab94f343\",\"dweb:/ipfs/QmXbg49PKbKVJN84ARz99NYLfUtKb6RA5Be9PJ1ndAYWFz\"]},\"/C/Users/MKOPA/Documents/WORK/UGARSOFT/Fortube-Individual-Group-BSC/contracts/IBankController.sol\":{\"keccak256\":\"0xcf519fc802e9e63351edf75bcdddbf262b7d851794c32a8342d3f2dcc3bb2cef\",\"urls\":[\"bzz-raw://3776ca7847ea4b0926dd53837489ef147b0b96fa80a2b3f3a28bd16435c69fa9\",\"dweb:/ipfs/QmWtrMQobdfpb84T7DQ67Mq5A2p75piRwC6xoN5Q5fXuKR\"]},\"/C/Users/MKOPA/Documents/WORK/UGARSOFT/Fortube-Individual-Group-BSC/contracts/IFToken.sol\":{\"keccak256\":\"0xb31e8e354fe3cf151410c2143fb9844e5a777569fc7d2bbd288e7610e91cb20b\",\"urls\":[\"bzz-raw://58515d4e9474cbd36071eab29f37ad2fbdc38a41b84ca0021ded3281e2fa525f\",\"dweb:/ipfs/Qmc6Rwf8XbWfvfcSBm965K1mipBASU4Wf4m8pQaVtwPTq8\"]}},\"version\":1}",
   "bytecode": "0x",
   "deployedBytecode": "0x",
   "immutableReferences": {},
   "sourceMap": "",
   "deployedSourceMap": "",
   "source": "// SPDX-License-Identifier: MIT\r\n\r\npragma solidity >=0.6.6;\r\n\r\nimport \"./IFToken.sol\";\r\n\r\ninterface IBankController{\r\n    \r\n    // Pass the address of a token or fToken and check if it is valid\r\n    function isFTokenValid(address fToken) external view returns (bool);\r\n    \r\n    //  retuns all the supported FToken addresses\r\n    function getAllMarkets() external view returns (IFToken[] memory);\r\n    \r\n    /**\r\n        underlying is the main token address eg BUSD\r\n        This function will return the corresponding fToken when you pass the token address \r\n        Eg when you pass BUSD you will get address of fBUSD \r\n    */\r\n     function getFTokeAddress(address underlying)\r\n        external\r\n        view\r\n        returns (address);\r\n}",
-  "sourcePath": "C:\\Users\\MKOPA\\Documents\\WORK\\UGARSOFT\\yearn-savings\\yearnbsc\\contracts\\IBankController.sol",
+  "sourcePath": "C:/Users/MKOPA/Documents/WORK/UGARSOFT/Fortube-Individual-Group-BSC/contracts/IBankController.sol",
   "ast": {
-    "absolutePath": "/C/Users/MKOPA/Documents/WORK/UGARSOFT/yearn-savings/yearnbsc/contracts/IBankController.sol",
+    "absolutePath": "/C/Users/MKOPA/Documents/WORK/UGARSOFT/Fortube-Individual-Group-BSC/contracts/IBankController.sol",
     "exportedSymbols": {
       "IBankController": [
-        4572
+        5619
       ]
     },
-    "id": 4573,
+    "id": 5620,
     "nodeType": "SourceUnit",
     "nodes": [
       {
-        "id": 4549,
+        "id": 5596,
         "literals": [
           "solidity",
           ">=",
@@ -80,16 +80,16 @@
           ".6"
         ],
         "nodeType": "PragmaDirective",
-        "src": "35:24:10"
+        "src": "35:24:19"
       },
       {
-        "absolutePath": "/C/Users/MKOPA/Documents/WORK/UGARSOFT/yearn-savings/yearnbsc/contracts/IFToken.sol",
+        "absolutePath": "/C/Users/MKOPA/Documents/WORK/UGARSOFT/Fortube-Individual-Group-BSC/contracts/IFToken.sol",
         "file": "./IFToken.sol",
-        "id": 4550,
+        "id": 5597,
         "nodeType": "ImportDirective",
-        "scope": 4573,
-        "sourceUnit": 5791,
-        "src": "63:23:10",
+        "scope": 5620,
+        "sourceUnit": 6838,
+        "src": "63:23:19",
         "symbolAliases": [],
         "unitAlias": ""
       },
@@ -100,9 +100,9 @@
         "contractKind": "interface",
         "documentation": null,
         "fullyImplemented": false,
-        "id": 4572,
+        "id": 5619,
         "linearizedBaseContracts": [
-          4572
+          5619
         ],
         "name": "IBankController",
         "nodeType": "ContractDefinition",
@@ -111,7 +111,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "2a4d98cf",
-            "id": 4557,
+            "id": 5604,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -119,18 +119,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 4553,
+              "id": 5600,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4552,
+                  "id": 5599,
                   "mutability": "mutable",
                   "name": "fToken",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 4557,
-                  "src": "222:14:10",
+                  "scope": 5604,
+                  "src": "222:14:19",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -138,10 +138,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 4551,
+                    "id": 5598,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "222:7:10",
+                    "src": "222:7:19",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -152,21 +152,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "221:16:10"
+              "src": "221:16:19"
             },
             "returnParameters": {
-              "id": 4556,
+              "id": 5603,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4555,
+                  "id": 5602,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 4557,
-                  "src": "261:4:10",
+                  "scope": 5604,
+                  "src": "261:4:19",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -174,10 +174,10 @@
                     "typeString": "bool"
                   },
                   "typeName": {
-                    "id": 4554,
+                    "id": 5601,
                     "name": "bool",
                     "nodeType": "ElementaryTypeName",
-                    "src": "261:4:10",
+                    "src": "261:4:19",
                     "typeDescriptions": {
                       "typeIdentifier": "t_bool",
                       "typeString": "bool"
@@ -187,10 +187,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "260:6:10"
+              "src": "260:6:19"
             },
-            "scope": 4572,
-            "src": "199:68:10",
+            "scope": 5619,
+            "src": "199:68:19",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
@@ -199,7 +199,7 @@
             "body": null,
             "documentation": null,
             "functionSelector": "b0772d0b",
-            "id": 4563,
+            "id": 5610,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -207,49 +207,49 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 4558,
+              "id": 5605,
               "nodeType": "ParameterList",
               "parameters": [],
-              "src": "352:2:10"
+              "src": "352:2:19"
             },
             "returnParameters": {
-              "id": 4562,
+              "id": 5609,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4561,
+                  "id": 5608,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 4563,
-                  "src": "378:16:10",
+                  "scope": 5610,
+                  "src": "378:16:19",
                   "stateVariable": false,
                   "storageLocation": "memory",
                   "typeDescriptions": {
-                    "typeIdentifier": "t_array$_t_contract$_IFToken_$5790_$dyn_memory_ptr",
+                    "typeIdentifier": "t_array$_t_contract$_IFToken_$6837_$dyn_memory_ptr",
                     "typeString": "contract IFToken[]"
                   },
                   "typeName": {
                     "baseType": {
                       "contractScope": null,
-                      "id": 4559,
+                      "id": 5606,
                       "name": "IFToken",
                       "nodeType": "UserDefinedTypeName",
-                      "referencedDeclaration": 5790,
-                      "src": "378:7:10",
+                      "referencedDeclaration": 6837,
+                      "src": "378:7:19",
                       "typeDescriptions": {
-                        "typeIdentifier": "t_contract$_IFToken_$5790",
+                        "typeIdentifier": "t_contract$_IFToken_$6837",
                         "typeString": "contract IFToken"
                       }
                     },
-                    "id": 4560,
+                    "id": 5607,
                     "length": null,
                     "nodeType": "ArrayTypeName",
-                    "src": "378:9:10",
+                    "src": "378:9:19",
                     "typeDescriptions": {
-                      "typeIdentifier": "t_array$_t_contract$_IFToken_$5790_$dyn_storage_ptr",
+                      "typeIdentifier": "t_array$_t_contract$_IFToken_$6837_$dyn_storage_ptr",
                       "typeString": "contract IFToken[]"
                     }
                   },
@@ -257,10 +257,10 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "377:18:10"
+              "src": "377:18:19"
             },
-            "scope": 4572,
-            "src": "330:66:10",
+            "scope": 5619,
+            "src": "330:66:19",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
@@ -268,13 +268,13 @@
           {
             "body": null,
             "documentation": {
-              "id": 4564,
+              "id": 5611,
               "nodeType": "StructuredDocumentation",
-              "src": "408:220:10",
+              "src": "408:220:19",
               "text": "underlying is the main token address eg BUSD\nThis function will return the corresponding fToken when you pass the token address \nEg when you pass BUSD you will get address of fBUSD "
             },
             "functionSelector": "fc1ce708",
-            "id": 4571,
+            "id": 5618,
             "implemented": false,
             "kind": "function",
             "modifiers": [],
@@ -282,18 +282,18 @@
             "nodeType": "FunctionDefinition",
             "overrides": null,
             "parameters": {
-              "id": 4567,
+              "id": 5614,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4566,
+                  "id": 5613,
                   "mutability": "mutable",
                   "name": "underlying",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 4571,
-                  "src": "660:18:10",
+                  "scope": 5618,
+                  "src": "660:18:19",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -301,10 +301,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 4565,
+                    "id": 5612,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "660:7:10",
+                    "src": "660:7:19",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -315,21 +315,21 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "659:20:10"
+              "src": "659:20:19"
             },
             "returnParameters": {
-              "id": 4570,
+              "id": 5617,
               "nodeType": "ParameterList",
               "parameters": [
                 {
                   "constant": false,
-                  "id": 4569,
+                  "id": 5616,
                   "mutability": "mutable",
                   "name": "",
                   "nodeType": "VariableDeclaration",
                   "overrides": null,
-                  "scope": 4571,
-                  "src": "730:7:10",
+                  "scope": 5618,
+                  "src": "730:7:19",
                   "stateVariable": false,
                   "storageLocation": "default",
                   "typeDescriptions": {
@@ -337,10 +337,10 @@
                     "typeString": "address"
                   },
                   "typeName": {
-                    "id": 4568,
+                    "id": 5615,
                     "name": "address",
                     "nodeType": "ElementaryTypeName",
-                    "src": "730:7:10",
+                    "src": "730:7:19",
                     "stateMutability": "nonpayable",
                     "typeDescriptions": {
                       "typeIdentifier": "t_address",
@@ -351,27 +351,27 @@
                   "visibility": "internal"
                 }
               ],
-              "src": "729:9:10"
+              "src": "729:9:19"
             },
-            "scope": 4572,
-            "src": "635:104:10",
+            "scope": 5619,
+            "src": "635:104:19",
             "stateMutability": "view",
             "virtual": false,
             "visibility": "external"
           }
         ],
-        "scope": 4573,
-        "src": "90:652:10"
+        "scope": 5620,
+        "src": "90:652:19"
       }
     ],
-    "src": "35:707:10"
+    "src": "35:707:19"
   },
   "legacyAST": {
     "attributes": {
-      "absolutePath": "/C/Users/MKOPA/Documents/WORK/UGARSOFT/yearn-savings/yearnbsc/contracts/IBankController.sol",
+      "absolutePath": "/C/Users/MKOPA/Documents/WORK/UGARSOFT/Fortube-Individual-Group-BSC/contracts/IBankController.sol",
       "exportedSymbols": {
         "IBankController": [
-          4572
+          5619
         ]
       }
     },
@@ -385,24 +385,24 @@
             ".6"
           ]
         },
-        "id": 4549,
+        "id": 5596,
         "name": "PragmaDirective",
-        "src": "35:24:10"
+        "src": "35:24:19"
       },
       {
         "attributes": {
-          "SourceUnit": 5791,
-          "absolutePath": "/C/Users/MKOPA/Documents/WORK/UGARSOFT/yearn-savings/yearnbsc/contracts/IFToken.sol",
+          "SourceUnit": 6838,
+          "absolutePath": "/C/Users/MKOPA/Documents/WORK/UGARSOFT/Fortube-Individual-Group-BSC/contracts/IFToken.sol",
           "file": "./IFToken.sol",
-          "scope": 4573,
+          "scope": 5620,
           "symbolAliases": [
             null
           ],
           "unitAlias": ""
         },
-        "id": 4550,
+        "id": 5597,
         "name": "ImportDirective",
-        "src": "63:23:10"
+        "src": "63:23:19"
       },
       {
         "attributes": {
@@ -417,10 +417,10 @@
           "documentation": null,
           "fullyImplemented": false,
           "linearizedBaseContracts": [
-            4572
+            5619
           ],
           "name": "IBankController",
-          "scope": 4573
+          "scope": 5620
         },
         "children": [
           {
@@ -436,7 +436,7 @@
               ],
               "name": "isFTokenValid",
               "overrides": null,
-              "scope": 4572,
+              "scope": 5619,
               "stateMutability": "view",
               "virtual": false,
               "visibility": "external"
@@ -450,7 +450,7 @@
                       "mutability": "mutable",
                       "name": "fToken",
                       "overrides": null,
-                      "scope": 4557,
+                      "scope": 5604,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -464,19 +464,19 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 4551,
+                        "id": 5598,
                         "name": "ElementaryTypeName",
-                        "src": "222:7:10"
+                        "src": "222:7:19"
                       }
                     ],
-                    "id": 4552,
+                    "id": 5599,
                     "name": "VariableDeclaration",
-                    "src": "222:14:10"
+                    "src": "222:14:19"
                   }
                 ],
-                "id": 4553,
+                "id": 5600,
                 "name": "ParameterList",
-                "src": "221:16:10"
+                "src": "221:16:19"
               },
               {
                 "children": [
@@ -486,7 +486,7 @@
                       "mutability": "mutable",
                       "name": "",
                       "overrides": null,
-                      "scope": 4557,
+                      "scope": 5604,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "bool",
@@ -499,24 +499,24 @@
                           "name": "bool",
                           "type": "bool"
                         },
-                        "id": 4554,
+                        "id": 5601,
                         "name": "ElementaryTypeName",
-                        "src": "261:4:10"
+                        "src": "261:4:19"
                       }
                     ],
-                    "id": 4555,
+                    "id": 5602,
                     "name": "VariableDeclaration",
-                    "src": "261:4:10"
+                    "src": "261:4:19"
                   }
                 ],
-                "id": 4556,
+                "id": 5603,
                 "name": "ParameterList",
-                "src": "260:6:10"
+                "src": "260:6:19"
               }
             ],
-            "id": 4557,
+            "id": 5604,
             "name": "FunctionDefinition",
-            "src": "199:68:10"
+            "src": "199:68:19"
           },
           {
             "attributes": {
@@ -531,7 +531,7 @@
               ],
               "name": "getAllMarkets",
               "overrides": null,
-              "scope": 4572,
+              "scope": 5619,
               "stateMutability": "view",
               "virtual": false,
               "visibility": "external"
@@ -544,9 +544,9 @@
                   ]
                 },
                 "children": [],
-                "id": 4558,
+                "id": 5605,
                 "name": "ParameterList",
-                "src": "352:2:10"
+                "src": "352:2:19"
               },
               {
                 "children": [
@@ -556,7 +556,7 @@
                       "mutability": "mutable",
                       "name": "",
                       "overrides": null,
-                      "scope": 4563,
+                      "scope": 5610,
                       "stateVariable": false,
                       "storageLocation": "memory",
                       "type": "contract IFToken[]",
@@ -574,32 +574,32 @@
                             "attributes": {
                               "contractScope": null,
                               "name": "IFToken",
-                              "referencedDeclaration": 5790,
+                              "referencedDeclaration": 6837,
                               "type": "contract IFToken"
                             },
-                            "id": 4559,
+                            "id": 5606,
                             "name": "UserDefinedTypeName",
-                            "src": "378:7:10"
+                            "src": "378:7:19"
                           }
                         ],
-                        "id": 4560,
+                        "id": 5607,
                         "name": "ArrayTypeName",
-                        "src": "378:9:10"
+                        "src": "378:9:19"
                       }
                     ],
-                    "id": 4561,
+                    "id": 5608,
                     "name": "VariableDeclaration",
-                    "src": "378:16:10"
+                    "src": "378:16:19"
                   }
                 ],
-                "id": 4562,
+                "id": 5609,
                 "name": "ParameterList",
-                "src": "377:18:10"
+                "src": "377:18:19"
               }
             ],
-            "id": 4563,
+            "id": 5610,
             "name": "FunctionDefinition",
-            "src": "330:66:10"
+            "src": "330:66:19"
           },
           {
             "attributes": {
@@ -613,7 +613,7 @@
               ],
               "name": "getFTokeAddress",
               "overrides": null,
-              "scope": 4572,
+              "scope": 5619,
               "stateMutability": "view",
               "virtual": false,
               "visibility": "external"
@@ -623,9 +623,9 @@
                 "attributes": {
                   "text": "underlying is the main token address eg BUSD\nThis function will return the corresponding fToken when you pass the token address \nEg when you pass BUSD you will get address of fBUSD "
                 },
-                "id": 4564,
+                "id": 5611,
                 "name": "StructuredDocumentation",
-                "src": "408:220:10"
+                "src": "408:220:19"
               },
               {
                 "children": [
@@ -635,7 +635,7 @@
                       "mutability": "mutable",
                       "name": "underlying",
                       "overrides": null,
-                      "scope": 4571,
+                      "scope": 5618,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -649,19 +649,19 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 4565,
+                        "id": 5612,
                         "name": "ElementaryTypeName",
-                        "src": "660:7:10"
+                        "src": "660:7:19"
                       }
                     ],
-                    "id": 4566,
+                    "id": 5613,
                     "name": "VariableDeclaration",
-                    "src": "660:18:10"
+                    "src": "660:18:19"
                   }
                 ],
-                "id": 4567,
+                "id": 5614,
                 "name": "ParameterList",
-                "src": "659:20:10"
+                "src": "659:20:19"
               },
               {
                 "children": [
@@ -671,7 +671,7 @@
                       "mutability": "mutable",
                       "name": "",
                       "overrides": null,
-                      "scope": 4571,
+                      "scope": 5618,
                       "stateVariable": false,
                       "storageLocation": "default",
                       "type": "address",
@@ -685,34 +685,34 @@
                           "stateMutability": "nonpayable",
                           "type": "address"
                         },
-                        "id": 4568,
+                        "id": 5615,
                         "name": "ElementaryTypeName",
-                        "src": "730:7:10"
+                        "src": "730:7:19"
                       }
                     ],
-                    "id": 4569,
+                    "id": 5616,
                     "name": "VariableDeclaration",
-                    "src": "730:7:10"
+                    "src": "730:7:19"
                   }
                 ],
-                "id": 4570,
+                "id": 5617,
                 "name": "ParameterList",
-                "src": "729:9:10"
+                "src": "729:9:19"
               }
             ],
-            "id": 4571,
+            "id": 5618,
             "name": "FunctionDefinition",
-            "src": "635:104:10"
+            "src": "635:104:19"
           }
         ],
-        "id": 4572,
+        "id": 5619,
         "name": "ContractDefinition",
-        "src": "90:652:10"
+        "src": "90:652:19"
       }
     ],
-    "id": 4573,
+    "id": 5620,
     "name": "SourceUnit",
-    "src": "35:707:10"
+    "src": "35:707:19"
   },
   "compiler": {
     "name": "solc",
@@ -720,7 +720,7 @@
   },
   "networks": {},
   "schemaVersion": "3.3.4",
-  "updatedAt": "2021-03-29T22:53:16.604Z",
+  "updatedAt": "2021-03-30T20:55:27.562Z",
   "devdoc": {
     "methods": {}
   },
