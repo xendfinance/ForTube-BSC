@@ -7,6 +7,7 @@ const SavingsConfigContract = artifacts.require("SavingsConfig");
 const XendFinanceIndividual_Yearn_V1Contract = artifacts.require(
   "XendFinanceIndividual_Yearn_V1"
 );
+const XendFinanceGroup_Yearn_V1Contract = artifacts.require('XendFinanceGroup_Yearn_V1')
 const EsusuAdapterContract = artifacts.require('EsusuAdapter');
 const EsusuAdapterWithdrawalDelegateContract = artifacts.require('EsusuAdapterWithdrawalDelegate');
 const EsusuStorageContract = artifacts.require('EsusuStorage');
@@ -19,8 +20,8 @@ const ForTubeBankServiceContract = artifacts.require("ForTubeBankService");
 // const BUSDContractABI = require('./BEP20ABI.json');
 // const FBUSDContractABI = require('./BEP20ABI.json');    // FBUSD and BUSD can use the same ABI since we are just calling basic BEP20 functions for this test
 
-const BUSDContractAddress = "0x3b1F033dD955f3BE8649Cc9825A2e3E194765a3F";  // This is a custom BUSD for ForTube, you will not find it on BSC Faucet
-const FBUSDContractAddress = "0x6112a45160b2058C6402a5bfBE3A446c8fD4fb45";  // This is the FToken shares a user will receive when they deposit BUSD
+const BUSDContractAddress = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";  // This is a custom BUSD for ForTube, you will not find it on BSC Faucet
+const FBUSDContractAddress = "0x57160962Dc107C8FBC2A619aCA43F79Fd03E7556";  // This is the FToken shares a user will receive when they deposit BUSD
 
 
 
@@ -73,16 +74,30 @@ module.exports = function (deployer) {
                               XendTokenContract.address,
                               SavingsConfigContract.address);
 
-                              // await deployer.deploy(
-                              //   XendFinanceIndividual_Yearn_V1Contract,
-                              //   ForTubeBankServiceContract.address,
-                              //   ForTubeBankAdapterContract.address,
-                              //   BUSDContractAddress,
-                              //   ClientRecordContract.address,
-                              //   SavingsConfigContract.address,
-                              //   FBUSDContractAddress,
-                              //   TreasuryContract.address
-                              // );
+                              await deployer.deploy(
+                                XendFinanceIndividual_Yearn_V1Contract,
+                                ForTubeBankServiceContract.address,
+                                BUSDContractAddress,
+                                ClientRecordContract.address,
+                                GroupsContract.address,
+                                SavingsConfigContract.address,
+                                FBUSDContractAddress,
+                                RewardConfigContract.address,
+                                TreasuryContract.address,
+                                XendTokenContract.address
+                              );
+
+                              await deployer.deploy(XendFinanceGroup_Yearn_V1Contract, 
+                                ForTubeBankServiceContract.address,
+                                BUSDContractAddress,
+                                GroupsContract.address,
+                                CyclesContract.address,
+                                TreasuryContract.address,
+                                SavingsConfigContract.address,
+                                RewardConfigContract.address,
+                                XendTokenContract.address,
+                                FBUSDContractAddress,
+                                )
                               
      console.log("Groups Contract address", "",  GroupsContract.address);
 
@@ -154,7 +169,7 @@ module.exports = function (deployer) {
      console.log("1->Savings Config Rule Created ...");
      
      //0. update fortube adapter
-     await fortubeService.updateAdapter(ForTubeBankAdapterContract.address)
+     await fortubeService.UpdateAdapter(ForTubeBankAdapterContract.address)
  
       //3. Update the fortube service Address in the EsusuAdapter Contract
       await esusuAdapterContract.UpdateForTubeBankService(ForTubeBankServiceContract.address);

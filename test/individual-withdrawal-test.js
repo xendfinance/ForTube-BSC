@@ -1,6 +1,6 @@
 const { assert } = require("console");
 
-const Web3 = require('web3');
+const Web3 = require("web3");
 
 const web3 = new Web3("HTTP://127.0.0.1:8545");
 
@@ -8,159 +8,421 @@ const GroupsContract = artifacts.require("Groups");
 
 const TreasuryContract = artifacts.require("Treasury");
 
-const CyclesContract = artifacts.require("Cycles");
-
 const utils = require("./helpers/utils");
 
 const ClientRecordContract = artifacts.require("ClientRecord");
 
 const SavingsConfigContract = artifacts.require("SavingsConfig");
 
-const RewardConfigContract = artifacts.require("RewardConfig");
-
-const xendTokenContract = artifacts.require("XendToken");
-
-const EsusuServiceContract = artifacts.require("EsusuService");
-
-const FortubeAdapterHackContract = artifacts.require("ForTubeBankAdapterHack");
-
-const FortubeServiceContract = artifacts.require("ForTubeBankService");
+const ForTubeBankAdapter = artifacts.require("ForTubeBankAdapter");
+const ForTubeBankService = artifacts.require("ForTubeBankService");
 
 const XendFinanceIndividual_Yearn_V1 = artifacts.require(
   "XendFinanceIndividual_Yearn_V1"
 );
 
-const busdContractAddress = "0x3b1F033dD955f3BE8649Cc9825A2e3E194765a3F";
+const RewardConfigContract = artifacts.require("RewardConfig");
 
-const fBusdContractAddress = "0x6112a45160b2058C6402a5bfBE3A446c8fD4fb45";
+const XendTokenContract = artifacts.require("XendToken");
 
-const DaiContractABI = require('./abi/BEP20ABI.json');
+const EsusuServiceContract = artifacts.require("EsusuService");
 
-const daiContract = new web3.eth.Contract(DaiContractABI, busdContractAddress);
+const DaiContractABI = require("./abi/DaiContract.json");
 
+const busdAddress = "0xe9e7CEA3DedcA5984780Bafc599bD69ADd087D56";
 
+const daiContract = new web3.eth.Contract(DaiContractABI, busdAddress);
 
+const unlockedAddress = "0x631fc1ea2270e98fbd9d92658ece0f5a269aa161";
 
-contract("XendFinanceIndividual_Yearn_V1", (accounts) => {
+const EsusuAdapterContract = artifacts.require('EsusuAdapter');
+const EsusuAdapterWithdrawalDelegateContract = artifacts.require('EsusuAdapterWithdrawalDelegate');
+const EsusuStorageContract = artifacts.require('EsusuStorage');
+
+//  Approve a smart contract address or normal address to spend on behalf of the owner
+async function approveDai(spender, owner, amount) {
+  await daiContract.methods.approve(spender, amount).send({ from: owner });
+
+  console.log(
+    `Address ${spender}  has been approved to spend ${amount} x 10^-18 Dai by Owner:  ${owner}`
+  );
+}
+
+//  Send Dai from our constant unlocked address to any recipient
+async function sendDai(amount, recipient) {
+  var amountToSend = BigInt(amount); //  1000 Dai
+
+  console.log(`Sending  ${amountToSend} x 10^-18 Dai to  ${recipient}`);
+
+  await daiContract.methods
+    .transfer(recipient, amountToSend)
+    .send({ from: unlockedAddress });
+
+  let recipientBalance = await daiContract.methods.balanceOf(recipient).call();
+
+  console.log(`Recipient: ${recipient} DAI Balance: ${recipientBalance}`);
+}
+var account1;
+var account2;
+var account3;
+
+var account1Balance;
+var account2Balance;
+var account3Balance;
+
+contract("XendFinanceIndividual_Yearn_V1", () => {
   let contractInstance = null;
- 
+  let savingsConfigContract = null;
+  let xendTokenContract = null;
+  let forTubeBankService = null;
+  let rewardConfigContract = null;
+  let clientRecordContract = null;
+  let groupsContract = null;
+  let ForTubeBankAdapter = null;
+  let esusuAdapterContract = null;
+    let esusuAdapterWithdrawalDelegateContract = null;
+    let esusuStorageContract = null;
+    let esusuServiceContract = null;
 
   before(async () => {
+    savingsConfigContract = await SavingsConfigContract.deployed();
+    xendTokenContract = await XendTokenContract.deployed();
+    forTubeBankService = await ForTubeBankService.deployed();
+    clientRecordContract = await ClientRecordContract.deployed();
+    rewardConfigContract = await RewardConfigContract.deployed();
+    contractInstance = await XendFinanceIndividual_Yearn_V1.deployed();
+    ForTubeBankAdapter = await ForTubeBankAdapter.deployed();
+    groupsContract = await GroupsContract.deployed();
+    esusuAdapterWithdrawalDelegateContract = await EsusuAdapterWithdrawalDelegateContract.deployed();
+    esusuStorageContract = await EsusuStorageContract.deployed();
+    esusuAdapterContract = await EsusuAdapterContract.deployed();
+    esusuServiceContract = await EsusuServiceContract.deployed();
 
-  let clientRecord = await ClientRecordContract.deployed();
 
-  let savingsConfig =  await SavingsConfigContract.deployed();
 
-  let groups = await GroupsContract.deployed();
+    await xendTokenContract.grantAccess(contractInstance.address);
+    console.log("11->Xend Token Has Given access To Xend individual contract to transfer tokens ...");
 
-  let treasury = await TreasuryContract.deployed();
+    await contractInstance.setAdapterAddress();
+    console.log("12->Set the adapter address ...");
 
-  let esusuService = await EsusuServiceContract.deployed();
+    await clientRecordContract.activateStorageOracle(contractInstance.address);
+     
+    await savingsConfigContract.createRule("XEND_FINANCE_COMMISION_DIVISOR", 0, 0, 100, 1)
 
-  let rewardConfig = await RewardConfigContract.deployed(
-    esusuService.address,
-    groups.address
-  );
-  let fortubeService = await FortubeServiceContract.deployed();
+    await savingsConfigContract.createRule("XEND_FINANCE_COMMISION_DIVIDEND", 0, 0, 1, 1)
 
-    let fortubeAdapter = await FortubeAdapterHackContract.deployed(fortubeService.address);
+    await savingsConfigContract.createRule("PERCENTAGE_PAYOUT_TO_USERS", 0, 0, 0, 1)
 
-    contractInstance = await XendFinanceIndividual_Yearn_V1.deployed(
-        fortubeAdapter.address,
-        fortubeService.address,
-        busdContractAddress,
-        clientRecord.address,
-        savingsConfig.address,
-        fBusdContractAddress,
-        treasury.address
-    );
+    await savingsConfigContract.createRule("PERCENTAGE_AS_PENALTY", 0, 0, 1, 1);
+
+    //0. update fortube adapter
+    await forTubeBankService.UpdateAdapter(ForTubeBankAdapter.address)
+
+     //12.
+     await rewardConfigContract.SetRewardParams("100000000000000000000000000", "10000000000000000000000000", "2", "7", "10","15", "4","60", "4");
+
+     //13. 
+     await rewardConfigContract.SetRewardActive(true);
+
+     await groupsContract.activateStorageOracle(contractInstance.address);
+     
+   
+  //3. Update the DaiLendingService Address in the EsusuAdapter Contract
+  await esusuAdapterContract.UpdateDaiLendingService(forTubeBankService.address);
+  console.log("3->ForTubeBankService Address Updated In EsusuAdapter ...");
+
+  //4. Update the EsusuAdapter Address in the EsusuService Contract
+  await esusuServiceContract.UpdateAdapter(esusuAdapterContract.address);
+  console.log("4->EsusuAdapter Address Updated In EsusuService ...");
+
+  //5. Activate the storage oracle in Groups.sol with the Address of the EsusuApter
+  await  groupsContract.activateStorageOracle(esusuAdapterContract.address);
+  console.log("5->EsusuAdapter Address Updated In Groups contract ...");
+
+  //6. Xend Token Should Grant access to the  Esusu Adapter Contract
+  await xendTokenContract.grantAccess(esusuAdapterContract.address);
+  console.log("6->Xend Token Has Given access To Esusu Adapter to transfer tokens ...");
+
+  //7. Esusu Adapter should Update Esusu Adapter Withdrawal Delegate
+  await esusuAdapterContract.UpdateEsusuAdapterWithdrawalDelegate(esusuAdapterWithdrawalDelegateContract.address);
+  console.log("7->EsusuAdapter Has Updated Esusu Adapter Withdrawal Delegate Address ...");
+
+  //8. Esusu Adapter Withdrawal Delegate should Update Dai Lending Service
+  await esusuAdapterWithdrawalDelegateContract.UpdateDaiLendingService(forTubeBankService.address);
+  console.log("8->Esusu Adapter Withdrawal Delegate Has Updated Dai Lending Service ...");
+
+  //9. Esusu Service should update esusu adapter withdrawal delegate
+  await esusuServiceContract.UpdateAdapterWithdrawalDelegate(esusuAdapterWithdrawalDelegateContract.address);
+  console.log("9->Esusu Service Contract Has Updated  Esusu Adapter Withdrawal Delegate Address ...");
+
+  //10. Esusu Storage should Update Adapter and Adapter Withdrawal Delegate
+  await esusuStorageContract.UpdateAdapterAndAdapterDelegateAddresses(esusuAdapterContract.address,esusuAdapterWithdrawalDelegateContract.address);
+  console.log("10->Esusu Storage Contract Has Updated  Esusu Adapter and Esusu Adapter Withdrawal Delegate Address ...");
+
+  //11. Xend Token Should Grant access to the  Esusu Adapter Withdrawal Delegate Contract
+  await xendTokenContract.grantAccess(esusuAdapterWithdrawalDelegateContract.address);
+  console.log("11->Xend Token Has Given access To Esusu Adapter Withdrawal Delegate to transfer tokens ...");
+
+ //12. Set Group Creator Reward Percentage
+ await esusuAdapterWithdrawalDelegateContract.setGroupCreatorRewardPercent("100");
+ console.log("11-> Group Creator reward set on ESUSU Withdrawal Delegate ...");
+    
+    //  Get the addresses and Balances of at least 2 accounts to be used in the test
+    //  Send DAI to the addresses
+    web3.eth.getAccounts().then(function (accounts) {
+      account1 = accounts[0];
+      account2 = accounts[1];
+      account3 = accounts[2];
+
+      //  send money from the unlocked dai address to accounts 1 and 2
+      var amountToSend = BigInt(2000000000000000000); //   10,000 Dai
+
+      //  get the eth balance of the accounts
+      web3.eth.getBalance(account1, function (err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+          account1Balance = web3.utils.fromWei(result, "ether");
+          console.log(
+            "Account 1: " +
+              accounts[0] +
+              "  Balance: " +
+              account1Balance +
+              " ETH"
+          );
+          
+        }
+      });
+
+      web3.eth.getBalance(account2, function (err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+          account2Balance = web3.utils.fromWei(result, "ether");
+          console.log(
+            "Account 2: " +
+              accounts[1] +
+              "  Balance: " +
+              account2Balance +
+              " ETH"
+          );
+          sendDai(amountToSend, account2);
+        }
+      });
+
+      web3.eth.getBalance(account3, function (err, result) {
+        if (err) {
+          console.log(err);
+        } else {
+          account3Balance = web3.utils.fromWei(result, "ether");
+          console.log(
+            "Account 3: " +
+              accounts[2] +
+              "  Balance: " +
+              account3Balance +
+              " ETH"
+          );
+          sendDai(amountToSend, account3);
+        }
+      });
+    });
   });
 
   it("Should deploy the XendFinanceIndividual_Yearn_V1 smart contracts", async () => {
-
-    console.log(contractInstance.address, 'lol')
     assert(contractInstance.address !== "");
   });
 
   it("should throw error because no client records exist", async () => {
-      
-      await  utils.shouldThrow(contractInstance.getClientRecord(accounts[1]));
-      
-  })
+    await utils.shouldThrow(contractInstance.getClientRecord(account2));
+  });
+
+  it("should get price per full share", async () => {
+    const pricePerFullShare = await ForTubeBankAdapter.GetPricePerFullShare();
+
+    let value = BigInt(pricePerFullShare);
+
+    console.log(value.toString(), "price per full share");
+
+    assert(value > 0);
+  });
   it("should check if client records exist", async () => {
-      const doesClientRecordExistResult = await contractInstance.doesClientRecordExist(accounts[1]);
-
-      assert(doesClientRecordExistResult == false);
-  })
-
-
-
-   it("should deposit and withdraw", async () => {
-
-    let clientRecord = await ClientRecordContract.deployed();
-
-    let savingsConfig =  await SavingsConfigContract.deployed();
-  
-    let groups = await GroupsContract.deployed();
-  
-    let esusuService = await EsusuServiceContract.deployed();
-  
-    let treasury = await TreasuryContract.deployed();
-  
-    let rewardConfig = await RewardConfigContract.deployed(
-      esusuService.address,
-      groups.address
+    const doesClientRecordExistResult = await contractInstance.doesClientRecordExist(
+      account2
     );
 
-    let fortubeService = await FortubeServiceContract.deployed();
+    assert(doesClientRecordExistResult == false);
+  });
 
-    let fortubeAdapter = await FortubeAdapterHackContract.deployed(fortubeService.address);
+  it("should deposit and withdraw in flexible savings", async () => {
+    console.log(contractInstance.address, "address");
+
+    //  Give allowance to the xend finance individual to spend DAI on behalf of account 1 and 2
+    var approvedAmountToSpend = BigInt(20000000000000000000); //   1,000 Dai
+
+    await sendDai(approvedAmountToSpend, account1);
+
+    await approveDai(contractInstance.address, account1, approvedAmountToSpend);
+
+    // await clientRecord.createClientRecord(accounts[2], 0, 0, 0, 0, 0, {from : accounts[3]})
+    let balanceBeforeDeposit = await daiContract.methods
+      .balanceOf(account1)
+      .call();
+
+    console.log(
+      `Recipient: ${account1} DAI Balance before deposit: ${balanceBeforeDeposit}`
+    );
+
+    await contractInstance.deposit({ from: account1 });
+
+    let balanceAfterDeposit = await daiContract.methods
+      .balanceOf(account1)
+      .call();
+
+    console.log(
+      `Recipient: ${account1} DAI Balance after deposit: ${balanceAfterDeposit}`
+    );
+
+    let result = await clientRecordContract.getClientRecordByAddress(account1);
+
+    console.log(
+      `depositors address: ${BigInt(result[0])}`,
+      `underlyingTotalDeposits:  ${BigInt(result[1])}`,
+      `underlyingTotalWithdrawn:  ${BigInt(result[2])}`,
+      `derivativeBalance:  ${BigInt(result[3])}`,
+      `derivativeTotalDeposits:  ${BigInt(result[4])}`,
+      `derivateive total withdrawn:  ${BigInt(result[5])}`,
+      "lol"
+    );
+    const pricePerFullShare = await ForTubeBankAdapter.GetPricePerFullShare();
+
+    let value = BigInt(pricePerFullShare);
+
+    let derivedDeposit = BigInt(result[4]);
+
+    let derivativeBalance = BigInt(result[3])
   
-  
-      const individualContractInstance = await XendFinanceIndividual_Yearn_V1.deployed(
-        fortubeAdapter.address,
-        fortubeService.address,
-        busdContractAddress,
-        clientRecord.address,
-        savingsConfig.address,
-        fBusdContractAddress,
-        treasury.address
-      );
+    console.log(derivedDeposit * value, 'here is the guy')
 
-        await clientRecord.activateStorageOracle(individualContractInstance.address, {from :accounts[0]});
+    let amountToWithdraw = derivativeBalance.toString()
 
-        await savingsConfigContract.createRule("XEND_FINANCE_COMMISION_DIVISOR", 0, 0, 100, 1)
+    console.log(`Derivative Balance Before Withdrawal: ${derivativeBalance}`);
 
-        await savingsConfigContract.createRule("XEND_FINANCE_COMMISION_DIVIDEND", 0, 0, 1, 1)
+    let balanceBeforeWithdrawal = await daiContract.methods.balanceOf(account1).call();
+
+    console.log(`Recipient: ${account1} DAI Balance Before withdrawal: ${balanceBeforeWithdrawal}`);
+
+    await contractInstance.withdraw(amountToWithdraw);
+
+    let balanceAfterWithdrawal = await daiContract.methods
+      .balanceOf(account1)
+      .call();
+
+    console.log(
+      `Recipient: ${account1} DAI Balance after withdrawal: ${balanceAfterWithdrawal}`
+    );
+
+    let result2 = await clientRecordContract.getClientRecordByAddress(account1);
+
+    console.log(
+      `depositors address: ${BigInt(result2[0])}`,
+      `underlyingTotalDeposits:  ${BigInt(result2[1])}`,
+      `underlyingTotalWithdrawn:  ${BigInt(result2[2])}`,
+      `derivativeBalance:  ${BigInt(result2[3])}`,
+      `derivativeTotalDeposits:  ${BigInt(result2[4])}`,
+      `derivateive total withdrawn:  ${BigInt(result2[5])}`,
+      "lol"
+    );
+
+
+  });
+
+  it("should deposit and withdraw in fixed deposit savings", async () => {
+     //  Give allowance to the xend finance individual to spend DAI on behalf of account 1 and 2
+     var approvedAmountToSpend = BigInt(2000000000000000000); //   1,000 Dai
+
+     await sendDai(approvedAmountToSpend, account1);
+ 
+     await approveDai(contractInstance.address, account1, approvedAmountToSpend);
+ 
+     // await clientRecord.createClientRecord(accounts[2], 0, 0, 0, 0, 0, {from : accounts[3]})
+     let balanceBeforeDeposit = await daiContract.methods
+       .balanceOf(account1)
+       .call();
+ 
+     console.log(
+       `Recipient: ${account1} DAI Balance before deposit: ${balanceBeforeDeposit}`
+     );
+     
+     let lockPeriodInSeconds  = "1"
+
+     await contractInstance.setMinimumLockPeriod(lockPeriodInSeconds);
+
+     await contractInstance.FixedDeposit(lockPeriodInSeconds);
+
+    let totalTokenDeposited =  await groupsContract.getTokenDeposit(busdAddress);
+
+     console.log(BigInt(totalTokenDeposited).toString(), "total tokens deposited")
+
+     let balanceAfterDeposit = await daiContract.methods
+     .balanceOf(account1)
+     .call();
+
+   console.log(
+     `Recipient: ${account1} DAI Balance after deposit: ${balanceAfterDeposit}`
+   );
+
+     let depositRecord = await contractInstance.getFixedDepositRecord("1");
+
     
-        await savingsConfigContract.createRule("PERCENTAGE_PAYOUT_TO_USERS", 0, 0, 0, 1)
+    //  console.log(
+    //   `record id: ${BigInt(depositRecord[0])}`,
+    //   `depositor address:  ${depositRecord[1]}`,
+    //   `amount:  ${BigInt(depositRecord[2])}`,
+    //   `derivative amount:  ${BigInt(depositRecord[3])}`,
+    //   `deposit date in seconds:  ${BigInt(depositRecord[4])}`,
+    //   `lock period in seconds:  ${BigInt(depositRecord[5])}`,
+    //   `withdrawn:  ${BigInt(depositRecord[6])}`,
+    //   "fixed deposit record details"
+    // );
+    console.log(depositRecord, "fixed deposit record")
+
     
-        await savingsConfigContract.createRule("PERCENTAGE_AS_PENALTY", 0, 0, 1, 1);
 
-        //approve an amount
+    const waitTime = (seconds) => new Promise(resolve => setTimeout(resolve, seconds * 1000));
 
-        var amount = BigInt(100000000000000000000);
-        
-        await daiContract.methods.approve(individualContractInstance.address, amount).send({ from: accounts[0] });
-        
-        console.log(`Address ${individualContractInstance.address}  has been approved to spend ${amount} x 10^-18 Dai by Owner:  ${accounts[0]}`);
-        
-        
+    const pricePerFullShare = await ForTubeBankAdapter.GetPricePerFullShare();
 
-        const depositResult = await instance.deposit({from : accounts[0]});
+    let amountToWithdraw = depositRecord[2] / pricePerFullShare;
+    let currentTimeStamp = await contractInstance.currentTimeStamp();
+    console.log(BigInt(currentTimeStamp).toString(), "current timestamp");
 
-        console.log(depositResult, 'deposit tx');
+    await waitTime(10);
 
-        assert(depositResult.receipt.status == true, "tx receipt status is true")
+    currentTimeStamp = await contractInstance.currentTimeStamp();
 
-        const withdrawResult = await instance.withdraw(amount);
+    console.log(BigInt(currentTimeStamp).toString(), "after await current timestamp");
 
-        console.log(withdrawResult, ' withdrawal tx')
+    await sendDai(approvedAmountToSpend, account1);
+ 
+    await approveDai(contractInstance.address, account1, approvedAmountToSpend);
 
-        // assert(withdrawResult.receipt.status == true, "tx receipt status is true")
+    await contractInstance.FixedDeposit(lockPeriodInSeconds);
 
+    let result = await contractInstance.WithdrawFromFixedDeposit("1");
 
-   })
+    let balanceAfterWithdrawal = await daiContract.methods
+     .balanceOf(account1)
+     .call();
 
+   console.log(
+     `Recipient: ${account1} DAI Balance after withdrawal: ${balanceAfterWithdrawal}`
+   );
 
+   assert(balanceAfterWithdrawal >= balanceAfterDeposit);
+
+    // console.log(result)
+    assert(result.receipt.status == true)
+
+  })
 });
